@@ -68,6 +68,7 @@ func (yj *Yaml2Jinja) Convert(structName string, data []byte) (string, error) {
 	// Unmarshal to map[string]interface{}
 	var obj map[string]interface{}
 	err := yaml.Unmarshal(data, &obj)
+	fmt.Println(err)
 	if err != nil {
 		return "", err
 	}
@@ -75,6 +76,8 @@ func (yj *Yaml2Jinja) Convert(structName string, data []byte) (string, error) {
 
 	yj.NewStruct("Yaml2Jinja", "")
 	for k, v := range obj {
+		fmt.Printf("Key: %v \n", k)
+		fmt.Printf("Value: %v \n", v)
 		yj.Structify(structName, k, v, false)
 	}
 	yj.AppendResult("Yaml2Go", "}\n")
